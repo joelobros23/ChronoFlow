@@ -3,11 +3,128 @@
 <head>
 	<meta charset='UTF-8'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<title>ChronoFlow</title>
-	<script src='[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)'></script>
+	<title>ChronoFlow - Home</title>
+	<script src='https://cdn.tailwindcss.com'></script>
 	<link rel='stylesheet' href='assets/css/style.css'>
 </head>
 <body class='bg-gray-100'>
-	<!-- Content for home.html -->
+	<div class='container mx-auto p-4'>
+		<!-- Navigation Bar -->
+		<nav class='bg-white shadow-md p-4 mb-4'>
+			<ul class='flex justify-between items-center'>
+				<li><a href='home.html' class='font-bold text-lg'>ChronoFlow</a></li>
+				<li>
+					<a href='profile.html' class='mr-4'>Profile</a>
+					<a href='friends.html' class='mr-4'>Friends</a>
+					<a href='settings.html' class='mr-4'>Settings</a>
+					<button id='logoutBtn' class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Logout</button>
+				</li>
+			</ul>
+		</nav>
+
+		<!-- Create Post Section -->
+		<div class='bg-white shadow-md p-4 mb-4'>
+			<h2 class='text-lg font-semibold mb-2'>Create a Post</h2>
+			<form id='createPostForm'>
+				<textarea id='postContent' class='w-full p-2 border rounded' placeholder='What are you thinking?'></textarea>
+				<input type='file' id='postImage' class='mb-2'>
+				<button type='submit' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Post</button>
+			</form>
+		</div>
+
+		<!-- Posts Section -->
+		<div id='postsContainer'>
+			<!-- Posts will be dynamically added here -->
+		</div>
+	</div>
+
+	<script src='assets/js/main.js'></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			// Logout Functionality
+			document.getElementById('logoutBtn').addEventListener('click', function() {
+				fetch('api/logout.php')
+					.then(response => response.json())
+					.then(data => {
+						if (data.success) {
+							window.location.href = 'index.html'; // Redirect to login page
+						} else {
+							alert('Logout failed: ' + data.message);
+						}
+					})
+					.catch(error => {
+						console.error('Error:', error);
+						alert('Logout failed. Please try again.');
+					});
+			});
+
+			// Function to fetch and display posts
+			function fetchPosts() {
+				fetch('api/get_posts.php')
+					.then(response => response.json())
+					.then(data => {
+						const postsContainer = document.getElementById('postsContainer');
+						postsContainer.innerHTML = ''; // Clear existing posts
+
+						if (data.success) {
+							data.posts.forEach(post => {
+								const postElement = document.createElement('div');
+								postElement.classList.add('bg-white', 'shadow-md', 'p-4', 'mb-4');
+
+								postElement.innerHTML = `
+									<p><strong>${post.username}</strong> - ${post.created_at}</p>
+									<p>${post.content}</p>
+									${post.image_url ? `<img src="${post.image_url}" alt="Post Image" class="mt-2">` : ''}
+								`;
+
+								postsContainer.appendChild(postElement);
+							});
+						} else {
+							postsContainer.innerHTML = '<p>No posts to display.</p>';
+						}
+					})
+					.catch(error => {
+						console.error('Error fetching posts:', error);
+						document.getElementById('postsContainer').innerHTML = '<p>Failed to load posts.</p>';
+					});
+			}
+
+			// Initial fetch of posts
+			fetchPosts();
+
+			// Create Post Form Submission
+			document.getElementById('createPostForm').addEventListener('submit', function(event) {
+				event.preventDefault();
+
+				const postContent = document.getElementById('postContent').value;
+				const postImage = document.getElementById('postImage').files[0];
+
+				const formData = new FormData();
+				formData.append('content', postContent);
+				if (postImage) {
+					formData.append('image', postImage);
+				}
+
+				fetch('api/create_post.php', {
+					method: 'POST',
+					body: formData
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						document.getElementById('postContent').value = ''; // Clear the textarea
+						document.getElementById('postImage').value = ''; // Clear the file input
+						fetchPosts(); // Refresh posts
+					} else {
+						alert('Failed to create post: ' + data.message);
+					}
+				})
+				.catch(error => {
+					console.error('Error creating post:', error);
+					alert('Failed to create post. Please try again.');
+				});
+			});
+		});
+	</script>
 </body>
 </html>
