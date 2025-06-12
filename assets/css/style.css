@@ -1,1 +1,179 @@
-/* Content for assets/css/style.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Example Custom Styles - Adapt as Needed */
+
+/* General Styles */
+body {
+    @apply font-sans bg-gray-100 text-gray-800;
+}
+
+.container {
+    @apply max-w-5xl mx-auto px-4;
+}
+
+/* Header Styles */
+.header {
+    @apply bg-white shadow-md py-4;
+}
+
+.header-nav {
+    @apply flex items-center justify-between;
+}
+
+.logo {
+    @apply text-2xl font-bold text-blue-500;
+}
+
+.nav-links {
+    @apply flex space-x-4;
+}
+
+.nav-link {
+    @apply text-gray-700 hover:text-blue-500;
+}
+
+/* Form Styles */
+.form-group {
+    @apply mb-4;
+}
+
+.form-label {
+    @apply block text-gray-700 text-sm font-bold mb-2;
+}
+
+.form-input {
+    @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline;
+}
+
+.form-textarea {
+    @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32;
+}
+
+.btn {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline;
+}
+
+.btn-primary {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline;
+}
+
+.btn-secondary {
+    @apply bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline;
+}
+
+/* Post Styles */
+.post {
+    @apply bg-white rounded shadow-md p-4 mb-4;
+}
+
+.post-header {
+    @apply flex items-center mb-2;
+}
+
+.post-author {
+    @apply font-bold mr-2;
+}
+
+.post-date {
+    @apply text-gray-500 text-sm;
+}
+
+.post-content {
+    @apply mb-2;
+}
+
+.post-image {
+    @apply w-full rounded mb-2;
+}
+
+.post-actions {
+    @apply flex space-x-2;
+}
+
+.like-button, .comment-button {
+    @apply text-gray-600 hover:text-blue-500 cursor-pointer;
+}
+
+/* Comment Styles */
+.comment {
+    @apply bg-gray-100 rounded p-2 mb-2;
+}
+
+.comment-author {
+    @apply font-bold mr-2;
+}
+
+.comment-date {
+    @apply text-gray-500 text-sm;
+}
+
+.comment-content {
+    @apply text-gray-700;
+}
+
+/* Profile Styles */
+.profile-card {
+    @apply bg-white rounded shadow-md p-4 mb-4;
+}
+
+.profile-picture {
+    @apply w-32 h-32 rounded-full object-cover mb-4;
+}
+
+.profile-name {
+    @apply text-2xl font-bold mb-2;
+}
+
+.profile-bio {
+    @apply text-gray-700 mb-4;
+}
+
+/* Friend Styles */
+.friend-list {
+    @apply space-y-2;
+}
+
+.friend-item {
+    @apply flex items-center justify-between bg-white rounded shadow-md p-2;
+}
+
+.friend-name {
+    @apply font-bold;
+}
+
+.friend-actions {
+    @apply flex space-x-2;
+}
+
+/* Settings Styles */
+.settings-form {
+    @apply bg-white rounded shadow-md p-4;
+}
+
+/* Error and Success Messages */
+.error-message {
+    @apply bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4;
+}
+
+.success-message {
+    @apply bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4;
+}
+
+/* Utility Classes (adjust as needed) */
+.hidden {
+    @apply hidden;
+}
+
+.visible {
+    @apply visible;
+}
+
+.text-center {
+    @apply text-center;
+}
+
+.mt-4 {
+    @apply mt-4;
+}
