@@ -3,11 +3,43 @@
 <head>
 	<meta charset='UTF-8'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<title>ChronoFlow</title>
-	<script src='[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)'></script>
+	<title>ChronoFlow - Settings</title>
+	<script src='https://cdn.tailwindcss.com'></script>
 	<link rel='stylesheet' href='assets/css/style.css'>
 </head>
 <body class='bg-gray-100'>
-	<!-- Content for settings.html -->
+	<div class='container mx-auto p-8'>
+		<h1 class='text-2xl font-bold mb-4'>Settings</h1>
+
+		<div id='profile-settings' class='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
+			<h2 class='text-xl font-semibold mb-2'>Profile Information</h2>
+
+			<form id='update-profile-form'>
+				<div class='mb-4'>
+					<label class='block text-gray-700 text-sm font-bold mb-2' for='bio'>
+						Bio:
+					</label>
+					<textarea class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='bio' name='bio' placeholder='Enter your bio'></textarea>
+				</div>
+
+				<div class='mb-4'>
+					<label class='block text-gray-700 text-sm font-bold mb-2' for='profile_picture'>
+						Profile Picture:
+					</label>
+					<input class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='profile_picture' name='profile_picture' type='file'>
+				</div>
+
+				<div class='flex items-center justify-between'>
+					<button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' type='submit'>
+						Update Profile
+					</button>
+				</div>
+			</form>
+			<div id='update-message' class='mt-4 text-green-500 hidden'>Profile updated successfully!</div>
+			<div id='update-error' class='mt-4 text-red-500 hidden'></div>
+		</div>
+	</div>
+
+	<script src='assets/js/settings.js'></script>
 </body>
 </html>
