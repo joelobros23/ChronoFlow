@@ -52,11 +52,70 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Attach event listeners to comment buttons and load comments on page load
+    // Function to handle liking a post
+    function likePost(postId) {
+        fetch('api/like_post.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `post_id=${postId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const likeButton = document.getElementById(`like-button-${postId}`);
+                if (likeButton) {
+                    likeButton.textContent = 'Unlike';
+                    likeButton.onclick = function() { unlikePost(postId); };
+                    // Update like count if present
+                    const likeCountElement = document.getElementById(`like-count-${postId}`);
+                    if (likeCountElement) {
+                        likeCountElement.textContent = data.like_count + ' Likes';
+                    }
+                }
+            } else {
+                alert('Failed to like post: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error liking post:', error));
+    }
+
+    // Function to handle unliking a post
+    function unlikePost(postId) {
+        fetch('api/unlike_post.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `post_id=${postId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const likeButton = document.getElementById(`like-button-${postId}`);
+                if (likeButton) {
+                    likeButton.textContent = 'Like';
+                    likeButton.onclick = function() { likePost(postId); };
+                    // Update like count if present
+                    const likeCountElement = document.getElementById(`like-count-${postId}`);
+                    if (likeCountElement) {
+                        likeCountElement.textContent = data.like_count + ' Likes';
+                    }
+                }
+            } else {
+                alert('Failed to unlike post: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error unliking post:', error));
+    }
+
+    // Attach event listeners to comment buttons, like buttons and load comments on page load
     document.querySelectorAll('.post').forEach(post => {
         const postId = post.getAttribute('data-post-id');
+
+        //Comment Functionality
         const commentButton = document.getElementById(`comment-button-${postId}`);
-        
         if (commentButton) {
              commentButton.addEventListener('click', function(event) {
                 event.preventDefault(); // Prevent default form submission
@@ -65,7 +124,21 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             console.error(`Comment button not found for post ID: ${postId}`);
         }
-
         loadComments(postId); // Load comments for each post when the page loads
+        
+        // Like Functionality
+        const likeButton = document.getElementById(`like-button-${postId}`);
+        if (likeButton) {
+            likeButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (likeButton.textContent === 'Like') {
+                    likePost(postId);
+                } else {
+                    unlikePost(postId);
+                }
+            });
+        } else {
+            console.error(`Like button not found for post ID: ${postId}`);
+        }
     });
 });
