@@ -3,11 +3,37 @@
 <head>
 	<meta charset='UTF-8'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<title>ChronoFlow</title>
-	<script src='[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)'></script>
+	<title>ChronoFlow - Friends</title>
+	<script src='https://cdn.tailwindcss.com'></script>
 	<link rel='stylesheet' href='assets/css/style.css'>
 </head>
 <body class='bg-gray-100'>
-	<!-- Content for friends.html -->
+	<div class='container mx-auto p-4'>
+		<h1 class='text-2xl font-bold mb-4'>Friends</h1>
+
+		<div id='friendRequests' class='mb-4'>
+			<h2 class='text-lg font-semibold mb-2'>Friend Requests</h2>
+			<ul id='friendRequestsList' class='list-none p-0'>
+				<!-- Friend requests will be dynamically added here -->
+			</ul>
+		</div>
+
+		<div id='friendList'>
+			<h2 class='text-lg font-semibold mb-2'>Friends</h2>
+			<ul id='friendsList' class='list-none p-0'>
+				<!-- Friends will be dynamically added here -->
+			</ul>
+		</div>
+
+		<div id='searchFriends'>
+			<h2 class='text-lg font-semibold mb-2'>Find Friends</h2>
+			<input type='text' id='searchFriendsInput' placeholder='Enter username' class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2'>
+			<button id='searchFriendsButton' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Search</button>
+			<div id='searchResults' class='mt-2'>
+				<!-- Search results will be dynamically added here -->
+			</div>
+		</div>
+	</div>
+	<script src='assets/js/friends.js'></script>
 </body>
 </html>
